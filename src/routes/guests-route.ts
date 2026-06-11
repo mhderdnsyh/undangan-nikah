@@ -1,12 +1,10 @@
 import { Elysia, t } from "elysia";
-import { db } from "../db";
-import { guests } from "../db/schema";
-import { eq } from "drizzle-orm";
+import { getAllGuests, createGuest } from "../services/guests-services";
 
 export const guestsRoutes = new Elysia({ prefix: "/api" })
   .get("/guests", async ({ set }) => {
     try {
-      const data = await db.select().from(guests);
+      const data = await getAllGuests();
       return {
         success: true,
         data,
@@ -22,17 +20,7 @@ export const guestsRoutes = new Elysia({ prefix: "/api" })
   })
   .post("/guests", async ({ body, set }) => {
     try {
-      const { name } = body;
-      // Simple slug generation
-      const slug = name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/(^-|-$)/g, "");
-
-      await db.insert(guests).values({
-        name,
-        slug,
-      });
+      const { slug } = await createGuest(body);
 
       return {
         success: true,

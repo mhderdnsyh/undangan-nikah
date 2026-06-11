@@ -1,12 +1,10 @@
 import { Elysia, t } from "elysia";
-import { db } from "../db";
-import { wishes } from "../db/schema";
-import { desc } from "drizzle-orm";
+import { getWishes, createWish } from "../services/wishes-services";
 
 export const wishesRoutes = new Elysia({ prefix: "/api" })
   .get("/wishes", async ({ set }) => {
     try {
-      const data = await db.select().from(wishes).orderBy(desc(wishes.createdAt));
+      const data = await getWishes();
       return {
         success: true,
         data,
@@ -22,12 +20,7 @@ export const wishesRoutes = new Elysia({ prefix: "/api" })
   })
   .post("/wishes", async ({ body, set }) => {
     try {
-      const { senderName, message } = body;
-
-      await db.insert(wishes).values({
-        senderName,
-        message,
-      });
+      await createWish(body);
 
       return {
         success: true,
