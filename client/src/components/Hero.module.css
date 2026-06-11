@@ -1,0 +1,77 @@
+.heroOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(rgba(250, 249, 246, 0.85), rgba(250, 249, 246, 0.85)), url('/wedding_bg.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 100;
+  text-align: center;
+  padding: 20px;
+}
+
+.title {
+  font-size: 3.5rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 40px;
+}
+
+.guestSection {
+  margin-bottom: 45px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 25px 35px;
+  border-radius: 16px;
+  border: 1px solid rgba(197, 168, 92, 0.2);
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.toText {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.guestName {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text-color);
+  font-family: var(--display-font);
+}
+
+.openBtn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 6px 20px rgba(197, 168, 92, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.openBtn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(197, 168, 92, 0.4);
+}
