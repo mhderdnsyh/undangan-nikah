@@ -1,5 +1,5 @@
 CREATE TABLE `guests` (
-	`id` serial AUTO_INCREMENT NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`slug` varchar(255) NOT NULL,
 	`created_at` timestamp DEFAULT (now()),
@@ -8,7 +8,7 @@ CREATE TABLE `guests` (
 );
 --> statement-breakpoint
 CREATE TABLE `rsvps` (
-	`id` serial AUTO_INCREMENT NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL,
 	`guest_name` varchar(255) NOT NULL,
 	`guest_id` int,
 	`status` enum('hadir','tidak_hadir') NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `rsvps` (
 );
 --> statement-breakpoint
 CREATE TABLE `wishes` (
-	`id` serial AUTO_INCREMENT NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL,
 	`sender_name` varchar(255) NOT NULL,
 	`message` text NOT NULL,
 	`created_at` timestamp DEFAULT (now()),
