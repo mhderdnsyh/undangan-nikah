@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { swagger } from "@elysiajs/swagger";
-import { rsvpRoutes } from "./routes/rsvp";
-import { wishesRoutes } from "./routes/wishes";
-import { guestsRoutes } from "./routes/guests";
+import { rsvpRoutes } from "./routes/rsvp-route";
+import { wishesRoutes } from "./routes/wishes-route";
+import { guestsRoutes } from "./routes/guests-route";
 
 const app = new Elysia()
   .use(
