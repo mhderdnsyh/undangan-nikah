@@ -1,5 +1,5 @@
 import { Elysia, t } from "elysia";
-import { getAllGuests, createGuest } from "../services/guests-services";
+import { getAllGuests, createGuest, getGuestBySlug } from "../services/guests-services";
 
 export const guestsRoutes = new Elysia({ prefix: "/api" })
   .get("/guests", async ({ set }) => {
@@ -14,6 +14,29 @@ export const guestsRoutes = new Elysia({ prefix: "/api" })
       return {
         success: false,
         message: "Failed to retrieve guests",
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+    }
+  })
+  .get("/guests/:slug", async ({ params: { slug }, set }) => {
+    try {
+      const guest = await getGuestBySlug(slug);
+      if (!guest) {
+        set.status = 404;
+        return {
+          success: false,
+          message: "Guest not found",
+        };
+      }
+      return {
+        success: true,
+        data: guest,
+      };
+    } catch (error) {
+      set.status = 500;
+      return {
+        success: false,
+        message: "Failed to retrieve guest",
         error: error instanceof Error ? error.message : "Unknown error",
       };
     }

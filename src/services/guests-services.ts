@@ -1,5 +1,6 @@
 import { db } from "../db";
 import { guests } from "../db/schema";
+import { eq } from "drizzle-orm";
 
 export interface CreateGuestInput {
   name: string;
@@ -7,6 +8,11 @@ export interface CreateGuestInput {
 
 export async function getAllGuests() {
   return await db.select().from(guests);
+}
+
+export async function getGuestBySlug(slug: string) {
+  const result = await db.select().from(guests).where(eq(guests.slug, slug)).limit(1);
+  return result[0] || null;
 }
 
 export async function createGuest(data: CreateGuestInput) {
