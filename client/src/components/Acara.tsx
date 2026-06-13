@@ -11,7 +11,7 @@ interface TimeLeft {
 }
 
 export default function Acara() {
-  const targetDate = '2026-12-25T09:00:00'; // Target wedding date
+  const targetDate = '2026-06-26T09:00:00'; // Target wedding date
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {

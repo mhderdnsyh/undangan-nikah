@@ -37,11 +37,11 @@ export default function Mempelai() {
       <div className={styles.coupleWrapper}>
         <motion.div className={styles.profile} variants={itemVariants}>
           <img src="/groom.png" alt="Mempelai Pria" className={styles.avatar} />
-          <h2 className={styles.name}>Rama Wijaya</h2>
+          <h2 className={styles.name} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Lambok Surya Rezeki Lumban Gaol</h2>
           <p className={styles.parents}>
-            Putra pertama dari<br />
-            <strong>Bpk. Suryo Wijaya</strong><br />
-            &amp; <strong>Ibu Retno Wijaya</strong>
+            Putra dari<br />
+            <strong>Bpk. Lumban Gaol</strong><br />
+            &amp; <strong>Ibu Lumban Gaol</strong>
           </p>
         </motion.div>
         
@@ -51,11 +51,11 @@ export default function Mempelai() {
         
         <motion.div className={styles.profile} variants={itemVariants}>
           <img src="/bride.png" alt="Mempelai Wanita" className={styles.avatar} />
-          <h2 className={styles.name}>Shinta Lestari</h2>
+          <h2 className={styles.name} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Juni Amella Hutagalung</h2>
           <p className={styles.parents}>
-            Putri kedua dari<br />
-            <strong>Bpk. Joko Lestari</strong><br />
-            &amp; <strong>Ibu Sri Lestari</strong>
+            Putri dari<br />
+            <strong>Bpk. Hutagalung</strong><br />
+            &amp; <strong>Ibu Hutagalung</strong>
           </p>
         </motion.div>
       </div>

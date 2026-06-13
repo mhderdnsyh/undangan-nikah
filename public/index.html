@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Undangan Pernikahan Rama & Shinta - Kami mengundang Anda untuk merayakan momen bahagia kami.">
+    <title>Undangan Pernikahan - Rama & Shinta</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Cover / Opening Screen -->
+    <div id="opening-screen" class="opening-screen">
+        <div class="glass-card fade-in">
+            <p class="subtitle">UNDANGAN PERNIKAHAN</p>
+            <h1 class="couple-name-title">Rama & Shinta</h1>
+            
+            <div class="guest-box" id="guest-container" style="display: none;">
+                <p class="guest-label">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                <p class="guest-name" id="invited-guest-name">Nama Tamu</p>
+            </div>
+            
+            <p class="opening-date">Sabtu, 12 September 2026</p>
+            <button id="btn-open-invitation" class="btn btn-primary btn-pulse">Buka Undangan</button>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden initially, shown after button click) -->
+    <div id="main-content" class="main-content" style="display: none;">
+        
+        <!-- Music Toggle Button -->
+        <button id="music-toggle" class="music-toggle" aria-label="Mute/Unmute Musik">
+            <span class="music-icon">🎵</span>
+        </button>
+        
+        <!-- Background Audio (Classical / Elegant Instrumental) -->
+        <audio id="background-music" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p class="reveal subtitle">THE WEDDING OF</p>
+                <h2 class="reveal couple-name">Rama & Shinta</h2>
+                <p class="reveal wedding-date">12 . 09 . 2026</p>
+            </div>
+        </header>
+
+        <!-- The Couple Section -->
+        <section class="section couple-section" id="couple">
+            <div class="container">
+                <span class="section-badge reveal">Mempelai</span>
+                <h3 class="section-title reveal">Mempelai Pria & Wanita</h3>
+                <p class="section-desc reveal">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Dengan memohon rahmat dan ridho-Mu, kami bermaksud menyelenggarakan pernikahan kami.</p>
+                
+                <div class="couple-grid">
+                    <!-- Groom Card -->
+                    <div class="couple-card groom reveal">
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder">🤵</div>
+                        </div>
+                        <h4 class="couple-card-name">Ramadhan Pratama, S.T.</h4>
+                        <p class="parents">Putra pertama dari Bapak H. Ahmad Pratama & Ibu Hj. Siti Aminah</p>
+                    </div>
+                    
+                    <div class="couple-divider">&</div>
+                    
+                    <!-- Bride Card -->
+                    <div class="couple-card bride reveal">
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder">👰</div>
+                        </div>
+                        <h4 class="couple-card-name">Shinta Lestari, S.Kom.</h4>
+                        <p class="parents">Putri kedua dari Bapak H. Hermawan Lestari & Ibu Hj. Ratna Sari</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown and Event Section -->
+        <section class="section event-section" id="event">
+            <div class="container">
+                <!-- Countdown Box -->
+                <div class="countdown-wrapper reveal">
+                    <h4 class="countdown-title">Hari Bahagia Kami</h4>
+                    <div class="countdown-grid">
+                        <div class="countdown-item">
+                            <span class="number" id="days">00</span>
+                            <span class="label">Hari</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="number" id="hours">00</span>
+                            <span class="label">Jam</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="number" id="minutes">00</span>
+                            <span class="label">Menit</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="number" id="seconds">00</span>
+                            <span class="label">Detik</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-grid">
+                    <!-- Akad Nikah -->
+                    <div class="event-card reveal">
+                        <div class="event-icon">💍</div>
+                        <h4 class="event-type">Akad Nikah</h4>
+                        <p class="event-time">Pukul 08:00 - 10:00 WIB</p>
+                        <p class="event-location"><strong>Masjid Raya Baiturrahman</strong><br>Jl. Kenanga No. 12, Jakarta Selatan</p>
+                        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Lihat Peta Lokasi</a>
+                    </div>
+                    
+                    <!-- Resepsi Pernikahan -->
+                    <div class="event-card reveal">
+                        <div class="event-icon">✨</div>
+                        <h4 class="event-type">Resepsi Pernikahan</h4>
+                        <p class="event-time">Pukul 11:00 - 16:00 WIB</p>
+                        <p class="event-location"><strong>Gedung Pertemuan Puri Agung</strong><br>Jl. Flamboyan Raya No. 45, Jakarta Selatan</p>
+                        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Lihat Peta Lokasi</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & Wishes Section -->
+        <section class="section rsvp-wishes-section" id="rsvp-wishes">
+            <div class="container">
+                <span class="section-badge reveal">Konfirmasi & Doa</span>
+                <h3 class="section-title reveal">RSVP & Ucapan Selamat</h3>
+                <p class="section-desc reveal">Kehadiran serta doa restu Anda sangat berarti bagi lembaran baru kehidupan kami.</p>
+                
+                <div class="rsvp-wishes-grid">
+                    <!-- RSVP Card -->
+                    <div class="form-card reveal">
+                        <h4 class="form-title">Konfirmasi Kehadiran (RSVP)</h4>
+                        <form id="form-rsvp">
+                            <div class="form-group">
+                                <label for="rsvp-name">Nama Tamu</label>
+                                <input type="text" id="rsvp-name" required placeholder="Masukkan nama Anda">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="rsvp-status">Konfirmasi Kehadiran</label>
+                                <select id="rsvp-status" required>
+                                    <option value="" disabled selected>Pilih kehadiran...</option>
+                                    <option value="hadir">Hadir</option>
+                                    <option value="tidak_hadir">Tidak Hadir</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" id="total-guests-group" style="display: none;">
+                                <label for="rsvp-total">Jumlah Tamu</label>
+                                <input type="number" id="rsvp-total" min="1" value="1">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-full" id="btn-submit-rsvp">
+                                <span class="btn-text">Kirim Konfirmasi</span>
+                                <span class="spinner" style="display: none;"></span>
+                            </button>
+                            <p id="rsvp-feedback" class="feedback-msg"></p>
+                        </form>
+                    </div>
+
+                    <!-- Wishes Form Card -->
+                    <div class="form-card reveal">
+                        <h4 class="form-title">Kirim Ucapan & Doa</h4>
+                        <form id="form-wish">
+                            <div class="form-group">
+                                <label for="wish-name">Nama Pengirim</label>
+                                <input type="text" id="wish-name" required placeholder="Masukkan nama Anda">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="wish-message">Ucapan atau Doa</label>
+                                <textarea id="wish-message" required placeholder="Tulis ucapan dan doa terbaik Anda..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-full" id="btn-submit-wish">
+                                <span class="btn-text">Kirim Ucapan</span>
+                                <span class="spinner" style="display: none;"></span>
+                            </button>
+                            <p id="wish-feedback" class="feedback-msg"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Wishes Board -->
+                <div class="wishes-board-wrapper reveal">
+                    <h4 class="wishes-board-title">Papan Ucapan Selamat</h4>
+                    <div class="wishes-list" id="wishes-list">
+                        <!-- Loading state -->
+                        <div class="wishes-loading">Memuat ucapan...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p class="thank-you">Terima Kasih</p>
+                <p class="footer-couple">Rama & Shinta</p>
+                <p class="copyright">&copy; 2026 Rama & Shinta Wedding. All rights reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>

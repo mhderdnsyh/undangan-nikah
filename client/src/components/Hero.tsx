@@ -56,9 +56,9 @@ export default function Hero({ onOpen, isOpen }: HeroProps) {
             className="flex flex-col items-center justify-center text-center"
           >
             <span className={styles.subtitle}>Undangan Pernikahan</span>
-            <h1 className={styles.title}>Rama &amp; Shinta</h1>
+            <h1 className={styles.title}>Lambok &amp; Juni</h1>
             <p style={{ fontStyle: 'italic', marginBottom: '30px', color: 'var(--text-muted)' }}>
-              Kamis, 11 Juni 2026
+              Jumat, 26 Juni 2026
             </p>
             
             <div className={styles.guestSection}>
