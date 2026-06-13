@@ -10,16 +10,33 @@ interface AudioPlayerProps {
 export default function AudioPlayer({ isPlaying, setIsPlaying }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const isPlayingRef = useRef(isPlaying);
+
   useEffect(() => {
-    // Soft piano ambient music
-    audioRef.current = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3');
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.5;
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
+
+  useEffect(() => {
+    const audio = new Audio('/cinta-terakhir.mp3');
+    audio.loop = true;
+    audio.volume = 0.5;
+
+    const handleError = () => {
+      console.warn('Local file /cinta-terakhir.mp3 not found. Falling back to default instrumental.');
+      // Prevent infinite loop if fallback also fails
+      audio.removeEventListener('error', handleError);
+      audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3';
+      if (isPlayingRef.current) {
+        audio.play().catch((err) => console.warn('Fallback play failed:', err));
+      }
+    };
+
+    audio.addEventListener('error', handleError);
+    audioRef.current = audio;
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
+      audio.removeEventListener('error', handleError);
+      audio.pause();
     };
   }, []);
 
