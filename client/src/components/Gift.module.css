@@ -1,0 +1,114 @@
+.section {
+  text-align: center;
+  padding: 80px 20px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+  margin-bottom: 40px;
+  box-shadow: var(--glass-shadow);
+}
+
+.title {
+  font-size: 2.2rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  line-height: 1.6;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+  .cardsGrid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+  }
+}
+
+.giftCard {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(197, 168, 92, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.giftCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+}
+
+.iconWrapper {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+.providerName {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  font-family: var(--primary-font);
+}
+
+.accountNumber {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 5px;
+  letter-spacing: 0.05em;
+}
+
+.accountName {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.copyButton {
+  background: var(--bg-color);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-light);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.copyButton:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.copied {
+  background: #2e7d32 !important;
+  color: white !important;
+  border-color: #2e7d32 !important;
+}

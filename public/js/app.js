@@ -299,6 +299,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ==========================================================================
+    // 7. COPY TO CLIPBOARD (WEDDING GIFT)
+    // ==========================================================================
+    const copyButtons = document.querySelectorAll('.btn-copy');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-copy-target');
+            const targetElement = document.getElementById(targetId);
+            if (!targetElement) return;
+            
+            const textToCopy = targetElement.textContent.trim();
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const copyTextSpan = button.querySelector('.copy-text');
+                const originalText = copyTextSpan.textContent;
+                
+                button.classList.add('copied');
+                copyTextSpan.textContent = 'Tersalin!';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    copyTextSpan.textContent = originalText;
+                    button.disabled = false;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        });
+    });
+
     // Helper to escape HTML tags to prevent XSS
     function escapeHTML(str) {
         return str
