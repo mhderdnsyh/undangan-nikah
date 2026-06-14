@@ -26,15 +26,15 @@ export default function Gift() {
     {
       id: 'bca',
       provider: 'BCA',
-      accountNumber: '7812345678',
-      accountName: 'Surya',
+      accountNumber: '2200667266',
+      accountName: 'Lambok Surya Rezeki Lumban Gaol',
       type: 'bank',
     },
     {
       id: 'dana',
       provider: 'DANA',
-      accountNumber: '081234567890',
-      accountName: 'Juni',
+      accountNumber: '0895322917105',
+      accountName: 'Lambok Surya Rezeki Lumban Gaol',
       type: 'wallet',
     },
   ];
@@ -85,7 +85,7 @@ Bukti Transfer dapat dilihat di sini:
 ${imageUrl}`;
 
         const encodedMessage = encodeURIComponent(message);
-        const waNumber = '6281234567890'; // Placeholder number
+        const waNumber = '62895322917105'; // Real WhatsApp number
         
         window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
         

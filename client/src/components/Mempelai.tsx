@@ -40,8 +40,8 @@ export default function Mempelai() {
           <h2 className={styles.name} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Lambok Surya Rezeki Lumban Gaol</h2>
           <p className={styles.parents}>
             Putra dari<br />
-            <strong>Bpk. Lumban Gaol</strong><br />
-            &amp; <strong>Ibu Lumban Gaol</strong>
+            <strong>Bpk. P. Lumbangaol</strong><br />
+            &amp; <strong>Ibu M. Br. Sianturi</strong>
           </p>
         </motion.div>
         
@@ -54,8 +54,8 @@ export default function Mempelai() {
           <h2 className={styles.name} style={{ fontSize: '1.2rem', fontWeight: 600 }}>Juni Amella Hutagalung</h2>
           <p className={styles.parents}>
             Putri dari<br />
-            <strong>Bpk. Hutagalung</strong><br />
-            &amp; <strong>Ibu Hutagalung</strong>
+            <strong>Bpk. F. Hutagalung</strong><br />
+            &amp; <strong>Ibu D. Br Tobing</strong>
           </p>
         </motion.div>
       </div>

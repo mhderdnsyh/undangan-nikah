@@ -11,7 +11,7 @@ interface TimeLeft {
 }
 
 export default function Acara() {
-  const targetDate = '2026-06-26T09:00:00'; // Target wedding date
+  const targetDate = '2026-06-26T10:00:00'; // Target wedding date
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -91,17 +91,17 @@ export default function Acara() {
           </h3>
           <div className={styles.time}>
             <Clock size={16} />
-            <span>09:00 WIB - Selesai</span>
+            <span>10:00 WIB - Selesai</span>
           </div>
           <div className={styles.location}>
             <MapPin size={16} />
-            <span className={styles.locationName}>Gereja [Nama Gereja]</span>
+            <span className={styles.locationName}>Gereja HKBP Resort Siwaluompu</span>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-            Jl. Pahlawan No. 10, Kota Semarang
+            Tarutung
           </p>
           <a 
-            href="https://maps.google.com" 
+            href="https://maps.app.goo.gl/i21wuxaHgaZ71XVx7?g_st=ac" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.mapLink}
@@ -118,17 +118,17 @@ export default function Acara() {
           </h3>
           <div className={styles.time}>
             <Clock size={16} />
-            <span>11:00 WIB - 16:00 WIB</span>
+            <span>10:00 WIB - Selesai</span>
           </div>
           <div className={styles.location}>
             <MapPin size={16} />
-            <span className={styles.locationName}>Gedung Grand Ballroom Elegance</span>
+            <span className={styles.locationName}>Siwaluompu</span>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
-            Jl. Pemuda No. 45, Kota Semarang
+            Parbubu II, Hutatoruan VI
           </p>
           <a 
-            href="https://maps.google.com" 
+            href="https://maps.app.goo.gl/dPTj7aeheJBXWyiR9?g_st=ac" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.mapLink}
