@@ -87,7 +87,7 @@ export default function Acara() {
         <motion.div className={styles.eventCard} variants={itemVariants}>
           <h3 className={styles.eventTitle}>
             <Calendar size={20} />
-            Akad Nikah
+            Pemberkatan Pernikahan
           </h3>
           <div className={styles.time}>
             <Clock size={16} />
@@ -95,7 +95,7 @@ export default function Acara() {
           </div>
           <div className={styles.location}>
             <MapPin size={16} />
-            <span className={styles.locationName}>Masjid Agung Baiturrahman</span>
+            <span className={styles.locationName}>Gereja [Nama Gereja]</span>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center' }}>
             Jl. Pahlawan No. 10, Kota Semarang
