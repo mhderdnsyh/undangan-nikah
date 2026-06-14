@@ -30,8 +30,8 @@ export default function Mempelai() {
       viewport={{ once: true, margin: '-100px' }}
     >
       <motion.p className={styles.intro} variants={itemVariants}>
-        Assalamu'alaikum Warahmatullahi Wabarakatuh<br />
-        Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:
+        Salam Sejahtera dalam Kasih Tuhan Yesus Kristus,<br />
+        Dengan memohon rahmat dan berkat-Nya, kami bermaksud mengundang Bapak/Ibu/Saudara/i ke acara pernikahan kami:
       </motion.p>
       
       <div className={styles.coupleWrapper}>
