@@ -56,7 +56,7 @@ export default function Hero({ onOpen, isOpen }: HeroProps) {
             className="flex flex-col items-center justify-center text-center"
           >
             <span className={styles.subtitle}>Undangan Pernikahan</span>
-            <h1 className={styles.title}>Lambok &amp; Juni</h1>
+            <h1 className={styles.title}>Surya &amp; Juni</h1>
             <p style={{ fontStyle: 'italic', marginBottom: '30px', color: 'var(--text-muted)' }}>
               Jumat, 26 Juni 2026
             </p>
