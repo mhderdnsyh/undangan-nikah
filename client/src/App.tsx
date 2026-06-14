@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Hero from './components/Hero';
 import Mempelai from './components/Mempelai';
 import Acara from './components/Acara';
+import Gift from './components/Gift';
 import Rsvp from './components/Rsvp';
 import Ucapan from './components/Ucapan';
 import AudioPlayer from './components/AudioPlayer';
@@ -45,6 +46,9 @@ export default function App() {
 
           {/* Event details and Countdown */}
           <Acara />
+
+          {/* Wedding Gift Section */}
+          <Gift />
 
           {/* RSVP Form */}
           <Rsvp />
