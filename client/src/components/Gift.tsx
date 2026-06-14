@@ -14,6 +14,14 @@ interface GiftMethod {
 export default function Gift() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
+  // Form states
+  const [nama, setNama] = useState('');
+  const [namaBank, setNamaBank] = useState('BCA');
+  const [nominal, setNominal] = useState('');
+  const [ucapan, setUcapan] = useState('');
+  const [fileBukti, setFileBukti] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const giftMethods: GiftMethod[] = [
     {
       id: 'bca',
@@ -40,6 +48,61 @@ export default function Gift() {
     }).catch((err) => {
       console.error('Failed to copy: ', err);
     });
+  };
+
+  const handleConfirmSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fileBukti) {
+      alert('Mohon unggah bukti transfer');
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', fileBukti);
+
+      const response = await fetch('/api/upload-proof', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Construct public URL, assuming backend runs on the same host or proxy
+        const imageUrl = window.location.origin + data.data.url;
+        
+        const message = `Halo, saya ingin konfirmasi pengiriman kado pernikahan:
+
+Nama: ${nama}
+Bank Tujuan: ${namaBank}
+Nominal: Rp ${nominal}
+Ucapan: ${ucapan}
+
+Bukti Transfer dapat dilihat di sini:
+${imageUrl}`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const waNumber = '6281234567890'; // Placeholder number
+        
+        window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
+        
+        // Reset form
+        setNama('');
+        setNominal('');
+        setUcapan('');
+        setFileBukti(null);
+      } else {
+        alert('Gagal mengunggah bukti transfer: ' + data.message);
+      }
+    } catch (error) {
+      console.error('Error uploading proof:', error);
+      alert('Terjadi kesalahan saat mengunggah bukti transfer.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const containerVariants: Variants = {
@@ -110,6 +173,67 @@ export default function Gift() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div className={styles.formContainer} variants={itemVariants}>
+        <h3 className={styles.formTitle}>Konfirmasi Kado</h3>
+        <form onSubmit={handleConfirmSubmit}>
+          <div className={styles.formGroup}>
+            <label>Nama Anda</label>
+            <input 
+              type="text" 
+              required 
+              placeholder="Masukkan nama"
+              value={nama}
+              onChange={(e) => setNama(e.target.value)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Bank / E-Wallet Tujuan</label>
+            <select 
+              value={namaBank}
+              onChange={(e) => setNamaBank(e.target.value)}
+            >
+              <option value="BCA">BCA</option>
+              <option value="DANA">DANA</option>
+            </select>
+          </div>
+          <div className={styles.formGroup}>
+            <label>Nominal (Rp)</label>
+            <input 
+              type="number" 
+              required 
+              placeholder="Contoh: 500000"
+              value={nominal}
+              onChange={(e) => setNominal(e.target.value)}
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label>Ucapan / Pesan Tambahan</label>
+            <textarea 
+              rows={3} 
+              placeholder="Tulis ucapan untuk mempelai..."
+              value={ucapan}
+              onChange={(e) => setUcapan(e.target.value)}
+            ></textarea>
+          </div>
+          <div className={styles.formGroup}>
+            <label>Bukti Transfer (Gambar)</label>
+            <input 
+              type="file" 
+              accept="image/*" 
+              required 
+              onChange={(e) => setFileBukti(e.target.files ? e.target.files[0] : null)}
+            />
+          </div>
+          <button 
+            type="submit" 
+            className={styles.submitBtn}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Mengunggah & Membuka WA...' : 'Konfirmasi via WhatsApp'}
+          </button>
+        </form>
+      </motion.div>
     </motion.section>
   );
 }

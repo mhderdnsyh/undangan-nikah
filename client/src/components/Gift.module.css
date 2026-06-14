@@ -112,3 +112,87 @@
   color: white !important;
   border-color: #2e7d32 !important;
 }
+
+/* Form Konfirmasi Kado */
+.formContainer {
+  margin-top: 50px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(197, 168, 92, 0.1);
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formTitle {
+  font-size: 1.4rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: var(--primary-font);
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(197, 168, 92, 0.3);
+  font-family: var(--primary-font);
+  font-size: 0.95rem;
+  color: var(--text-color);
+  transition: all 0.3s;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(197, 168, 92, 0.1);
+}
+
+.formGroup input[type="file"] {
+  padding: 8px;
+}
+
+.submitBtn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.submitBtn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.submitBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}

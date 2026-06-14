@@ -5,6 +5,7 @@ import { staticPlugin } from "@elysiajs/static";
 import { rsvpRoutes } from "./routes/rsvp-route";
 import { wishesRoutes } from "./routes/wishes-route";
 import { guestsRoutes } from "./routes/guests-route";
+import { uploadRoutes } from "./routes/upload-route";
 
 const app = new Elysia()
   .use(cors())
@@ -28,6 +29,7 @@ const app = new Elysia()
   .use(rsvpRoutes)
   .use(wishesRoutes)
   .use(guestsRoutes)
+  .use(uploadRoutes)
   .listen(3000);
 
 console.log(
