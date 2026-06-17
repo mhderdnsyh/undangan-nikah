@@ -18,45 +18,33 @@ export default function Ucapan() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    // 1. Fetch guest name from query param as default sender name
+    // 1. Get guest name from query param as default sender name
     const params = new URLSearchParams(window.location.search);
     const to = params.get('to');
     if (to) {
-      fetch(`/api/guests/${to}`)
-        .then((res) => {
-          if (!res.ok) throw new Error('Guest not found');
-          return res.json();
-        })
-        .then((resJson) => {
-          if (resJson.success && resJson.data?.name) {
-            setSenderName(resJson.data.name);
-          } else {
-            setSenderName(decodeURIComponent(to).replace(/-/g, ' '));
-          }
-        })
-        .catch(() => {
-          setSenderName(decodeURIComponent(to).replace(/-/g, ' '));
-        });
+      setSenderName(decodeURIComponent(to).replace(/-/g, ' '));
     }
 
-    // 2. Fetch wishes board
+    // 2. Load dummy wishes since we are fully static now
     fetchWishes();
   }, []);
 
-  const fetchWishes = async () => {
-    try {
-      const res = await fetch('/api/wishes');
-      const result = await res.json();
-      if (result.success && result.data) {
-        // Sort wishes by id descending (newest first)
-        const sorted = [...result.data].sort((a: Wish, b: Wish) => b.id - a.id);
-        setWishes(sorted);
+  const fetchWishes = () => {
+    setWishes([
+      {
+        id: 2,
+        senderName: "Budi & Keluarga",
+        message: "Selamat menempuh hidup baru Surya & Juni. Semoga menjadi keluarga yang bahagia selalu.",
+        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString()
+      },
+      {
+        id: 1,
+        senderName: "Andi (Sahabat)",
+        message: "Lancar sampai hari H ya! Bahagia selalu untuk kalian berdua.",
+        createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString()
       }
-    } catch (err) {
-      console.error('Failed to fetch wishes:', err);
-    } finally {
-      setLoadingWishes(false);
-    }
+    ]);
+    setLoadingWishes(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -66,31 +54,28 @@ export default function Ucapan() {
     setSubmitting(true);
 
     try {
-      const res = await fetch('/api/wishes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ senderName, message }),
-      });
+      const waMessage = `Halo, saya *${senderName}* ingin memberikan ucapan & doa untuk pernikahan kalian:
 
-      const result = await res.json();
+"${message}"
 
-      if (result.success) {
-        // Optimistic / Real-time local state update so it pops up instantly
-        const newWish: Wish = {
-          id: Date.now(), // temporary id
-          senderName,
-          message,
-          createdAt: new Date().toISOString(),
-        };
-        setWishes((prev) => [newWish, ...prev]);
-        setMessage(''); // Clear message area
-      } else {
-        throw new Error(result.message || 'Gagal mengirim ucapan');
-      }
+Selamat berbahagia!`;
+      
+      const encodedMessage = encodeURIComponent(waMessage);
+      const waNumber = '62895322917105'; // Real WhatsApp number
+      
+      window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
+
+      // Optimistic local state update so it pops up instantly on their screen
+      const newWish: Wish = {
+        id: Date.now(),
+        senderName,
+        message,
+        createdAt: new Date().toISOString(),
+      };
+      setWishes((prev) => [newWish, ...prev]);
+      setMessage('');
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Gagal mengirim ucapan, silakan coba lagi.');
+      alert('Terjadi kesalahan saat membuka WhatsApp.');
     } finally {
       setSubmitting(false);
     }
