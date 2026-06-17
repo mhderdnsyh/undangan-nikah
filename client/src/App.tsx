@@ -6,6 +6,7 @@ import Gift from './components/Gift';
 import Rsvp from './components/Rsvp';
 import Ucapan from './components/Ucapan';
 import AudioPlayer from './components/AudioPlayer';
+import Gallery from './components/Gallery';
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +44,9 @@ export default function App() {
         <main className="container">
           {/* Couple profiles */}
           <Mempelai />
+
+          {/* Prewedding photo gallery */}
+          <Gallery />
 
           {/* Event details and Countdown */}
           <Acara />
