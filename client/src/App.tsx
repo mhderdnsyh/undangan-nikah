@@ -7,6 +7,7 @@ import Rsvp from './components/Rsvp';
 import Ucapan from './components/Ucapan';
 import AudioPlayer from './components/AudioPlayer';
 import Gallery from './components/Gallery';
+import Footer from './components/Footer';
 
 export default function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,10 +62,7 @@ export default function App() {
           <Ucapan />
 
           {/* Footer details */}
-          <footer className="text-center" style={{ padding: '40px 0', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-            <p>Terima kasih atas doa restu Anda.</p>
-            <p style={{ marginTop: '10px', opacity: 0.6 }}>Made with ♥ for Surya &amp; Juni</p>
-          </footer>
+          <Footer />
         </main>
       )}
     </>
