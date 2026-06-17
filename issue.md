@@ -1,61 +1,94 @@
-# Fitur Footer dan Credit Link Profesional
+# DOKUMEN ISSUE: PERSIAPAN HOSTING & FITUR LIVE STREAMING
+
+Dokumen ini memuat dua buah rencana implementasi (issue) yang terpisah, yaitu Panduan Hosting Gratis dan Pembuatan Fitur Live Streaming.
+
+---
+
+# ISSUE 1: Rencana Hosting Undangan Pernikahan (Gratis)
 
 ## Deskripsi Singkat
-Fitur ini bertujuan untuk menyempurnakan bagian paling bawah (footer) dari halaman undangan pernikahan. Footer yang saat ini mungkin masih bersifat *hardcoded* dan sederhana di dalam file utama, akan dipisahkan menjadi komponen tersendiri. Footer ini harus berisi ucapan terima kasih penutup dan sebuah *credit link* (tautan kredit) yang terlihat elegan dan profesional (contoh: "Exclusive Wedding Invitation by [Nama/Brand]").
+Mendokumentasikan rencana dan tahapan untuk meng-hosting aplikasi undangan pernikahan secara online menggunakan layanan gratis. Karena aplikasi menggunakan **Vite (React)** di frontend, **Vercel** adalah opsi terbaik, tercepat, dan 100% gratis. 
 
-## Target Pengguna (Implementator)
-Panduan ini disusun secara rinci dan terstruktur agar mudah dieksekusi oleh Junior Programmer atau AI pendamping.
+## Opsi Tempat Hosting
 
----
+### Opsi 1: Frontend Saja di Vercel (Sangat Direkomendasikan & Mudah)
+Aplikasi ini bisa berjalan hampir sempurna hanya dengan *Frontend*.
+- **Kelebihan**: 100% Gratis, sangat cepat, deploy otomatis dari GitHub.
+- **Kekurangan**: Fitur unggah bukti transfer (`Gift.tsx`) membutuhkan backend (tapi bisa diatasi dengan mengubah konfirmasi kado menjadi via WhatsApp, sama seperti RSVP).
+- **Platform**: [Vercel](https://vercel.com).
 
-## Tahapan Implementasi
+### Opsi 2: Fullstack (Frontend + Backend)
+Jika backend (Elysia) tetap ingin dipertahankan.
+- **Frontend**: Vercel (Gratis).
+- **Backend (Bun + API)**: [Render.com](https://render.com) atau [Railway.app](https://railway.app).
 
-### 1. Membuat Komponen React Baru (`Footer.tsx`)
-* Buat file baru di dalam direktori `client/src/components/Footer.tsx`.
-* Buat file *stylesheet* pendamping di `client/src/components/Footer.module.css`.
+## Tahapan Implementasi (Panduan Vercel untuk Junior Programmer / AI)
 
-**Instruksi Kode untuk `Footer.tsx`:**
-1. Lakukan import *style*: `import styles from './Footer.module.css';`
-2. Deklarasikan komponen fungsional `Footer`.
-3. Kembalikan (return) elemen `<footer>` yang diberi *className* dari module CSS (misalnya `styles.footer`).
-4. Di dalam footer, tambahkan elemen teks (misal `<p>`) yang berisi: "Terima kasih atas doa restu Anda."
-5. Di bawahnya, tambahkan elemen `<p>` lain yang berisi *credit link*. Gunakan tag `<a>` untuk bagian tautan.
-   Contoh struktur:
-   ```tsx
-   <p className={styles.credit}>
-     Exclusive Wedding Invitation by <a href="https://github.com/mhderdnsyh" target="_blank" rel="noopener noreferrer" className={styles.link}>Nama Anda / Vendor</a>
-   </p>
-   ```
-
-### 2. Menyusun Styling (`Footer.module.css`)
-* Buat *styling* untuk *container* utama (`.footer`):
-  - Berikan ruang bernapas yang cukup: `padding: 60px 20px 40px;`
-  - Posisi teks berada di tengah: `text-align: center;`
-  - Warna teks menggunakan warna pudar yang selaras: `color: var(--text-muted);`
-  - Ukuran huruf yang lebih kecil agar tidak mendominasi: `font-size: 0.9rem;`
-* Buat *styling* untuk teks kredit (`.credit`):
-  - Berikan sedikit jarak dari teks di atasnya: `margin-top: 15px;`
-  - Tambahkan efek transparansi (opsional): `opacity: 0.8;`
-* Buat *styling* untuk tautan/link (`.link`):
-  - Hilangkan garis bawah bawaan: `text-decoration: none;`
-  - Berikan warna *bold* atau senada dengan teks (hindari warna biru bawaan *browser*): `color: inherit;` atau `color: var(--accent-color);`
-  - Berikan transisi halus: `transition: color 0.3s ease;`
-  - Buat efek saat *kursor* mengarah ke link (*hover*): ubah warna menjadi warna utama aplikasi (`var(--accent-hover)`) atau kembalikan opacity menjadi 1.
-
-### 3. Mengintegrasikan Komponen ke Halaman Utama (`App.tsx`)
-1. Buka file utama di `client/src/App.tsx`.
-2. Lakukan import komponen yang baru dibuat:
-   `import Footer from './components/Footer';`
-3. Cari elemen `<footer>...</footer>` bawaan (HTML biasa) yang berada di bagian paling bawah di dalam `<main className="container">`.
-4. Hapus elemen `<footer>` bawaan tersebut.
-5. Gantikan posisinya dengan memanggil komponen baru: `<Footer />`.
+1. **Konfigurasi Vercel & GitHub**
+   - Buat akun di [Vercel](https://vercel.com/) menggunakan GitHub.
+   - Klik **"Add New Project"** dan *Import* repositori `undangan-nikah`.
+2. **Pengaturan Build (PENTING)**
+   - **Framework Preset**: Pilih `Vite`.
+   - **Root Directory**: Klik edit dan ubah menjadi `client` (KARENA kode frontend kita ada di folder client).
+   - **Build Settings**: Biarkan *default*.
+3. **Deployment**
+   - Klik **"Deploy"**. Vercel akan memproses otomatis.
+4. **Penyesuaian Komponen (Tugas Lanjutan)**
+   - Ubah komponen `Gift.tsx` agar konfirmasi transfer diarahkan ke URL WhatsApp (`wa.me`) alih-alih melakukan `fetch` ke backend. Hal ini memungkinkan undangan menjadi 100% statis.
 
 ---
+
+# ISSUE 2: Penambahan Fitur Live Streaming Akad Nikah
+
+## Deskripsi Singkat
+Menambahkan *section* baru untuk menampilkan siaran langsung (Live Streaming) acara akad nikah. Fitur ini memungkinkan tamu yang berhalangan hadir secara fisik untuk tetap mengikuti prosesi sakral secara online melalui sematan (embed) video YouTube atau Instagram.
+
+## Tahapan Implementasi (Panduan untuk Junior Programmer / AI)
+
+### 1. Membuat Komponen React (`LiveStreaming.tsx`)
+* Buat file baru di `client/src/components/LiveStreaming.tsx`.
+* Impor *Lucide icon* yang relevan, misalnya ikon `Youtube` atau `Video`.
+* Buat kerangka elemen dengan judul (misal: "Siaran Langsung Akad Nikah").
+* Tambahkan elemen iframe HTML standar untuk menyematkan (embed) video YouTube Live.
+  *Contoh iframe:*
+  ```html
+  <iframe 
+    src="https://www.youtube.com/embed/ID_VIDEO_YOUTUBE" 
+    title="Live Streaming Akad Nikah" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
+  </iframe>
+  ```
+
+### 2. Membuat Styling (`LiveStreaming.module.css`)
+* Buat file stylesheet pendamping di `client/src/components/LiveStreaming.module.css`.
+* Berikan *padding* dan *margin* agar selaras dengan komponen lain.
+* **PENTING (Responsive Iframe)**: Buat wadah (*wrapper*) untuk iframe agar rasio videonya tetap 16:9 di semua layar (HP maupun laptop). 
+  *Panduan CSS:*
+  ```css
+  .videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px; /* Sesuai tema elegan */
+  }
+  .videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  ```
+
+### 3. Mengintegrasikan ke Halaman Utama (`App.tsx`)
+* Buka `client/src/App.tsx`.
+* Lakukan `import LiveStreaming from './components/LiveStreaming';`.
+* Sisipkan komponen `<LiveStreaming />` ke dalam layout utama. Posisi terbaik biasanya diletakkan tepat di bawah komponen `<Acara />` atau tepat sebelum komponen `<Gift />`.
 
 ## Kriteria Penerimaan (Acceptance Criteria / QA Checklist)
-- [ ] Komponen `Footer` berhasil dipisahkan ke filenya sendiri dan membuat kode `App.tsx` menjadi lebih bersih.
-- [ ] Terdapat ucapan terima kasih di bagian paling bawah halaman.
-- [ ] Terdapat *credit link* yang bertuliskan "Exclusive Wedding Invitation by ..." yang terlihat rapi dan tidak kebesaran.
-- [ ] *Credit link* dapat diklik dan berhasil mengarahkan pengguna ke tab baru (portofolio/kontak/GitHub pembuat).
-- [ ] Efek *hover* pada tautan berjalan mulus, mengubah warna tautan untuk memberi *feedback* visual yang profesional.
-- [ ] Secara keseluruhan tampilan footer tetap elegan dan selaras dengan nuansa undangan.
+- [ ] Tersedia section khusus "Live Streaming" dengan desain yang menyatu dengan tema (font, warna).
+- [ ] Video YouTube dapat diputar langsung di dalam halaman undangan (tidak berpindah tab).
+- [ ] Tampilan video responsif dan tidak terpotong saat diakses dari HP berlayar kecil.
