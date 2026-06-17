@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, CheckCircle2, Loader2, XCircle } from 'lucide-react';
+import { Check } from 'lucide-react';
 import styles from './Rsvp.module.css';
 
 export default function Rsvp() {
   const [guestName, setGuestName] = useState('');
-  const [guestId, setGuestId] = useState<number | null>(null);
   const [status, setStatus] = useState<'hadir' | 'tidak_hadir'>('hadir');
   const [totalGuests, setTotalGuests] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [responseMsg, setResponseMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -24,7 +21,6 @@ export default function Rsvp() {
         .then((resJson) => {
           if (resJson.success && resJson.data) {
             setGuestName(resJson.data.name);
-            setGuestId(resJson.data.id);
           } else {
             setGuestName(decodeURIComponent(to).replace(/-/g, ' '));
           }
@@ -35,45 +31,21 @@ export default function Rsvp() {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!guestName.trim()) return;
 
-    setLoading(true);
-    setResponseMsg(null);
-
-    try {
-      const response = await fetch('/api/rsvp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          guestName,
-          guestId: guestId || null,
-          status,
-          totalGuests: status === 'hadir' ? totalGuests : undefined,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setResponseMsg({
-          type: 'success',
-          text: 'Konfirmasi RSVP berhasil dikirim. Terima kasih atas konfirmasi Anda!',
-        });
-      } else {
-        throw new Error(result.message || 'Gagal mengirim RSVP');
-      }
-    } catch (err) {
-      setResponseMsg({
-        type: 'error',
-        text: err instanceof Error ? err.message : 'Koneksi internet bermasalah, silakan coba lagi.',
-      });
-    } finally {
-      setLoading(false);
+    const waNumber = '62895322917105';
+    let message = `Halo, saya *${guestName}* ingin mengonfirmasi bahwa saya akan *${status === 'hadir' ? 'Hadir' : 'Tidak Hadir'}* pada acara pernikahan Surya & Juni.`;
+    
+    if (status === 'hadir') {
+      message += `\nJumlah Tamu: *${totalGuests}* orang.`;
     }
+    message += `\n\nTerima kasih.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -99,7 +71,6 @@ export default function Rsvp() {
             onChange={(e) => setGuestName(e.target.value)}
             placeholder="Tuliskan nama lengkap Anda"
             required
-            disabled={loading}
           />
         </div>
 
@@ -108,14 +79,14 @@ export default function Rsvp() {
           <div className={styles.statusWrapper}>
             <div 
               className={`${styles.statusCard} ${status === 'hadir' ? styles.statusCardActive : ''}`}
-              onClick={() => !loading && setStatus('hadir')}
+              onClick={() => setStatus('hadir')}
             >
               {status === 'hadir' && <Check size={16} />}
               Saya Hadir
             </div>
             <div 
               className={`${styles.statusCard} ${status === 'tidak_hadir' ? styles.statusCardActive : ''}`}
-              onClick={() => !loading && setStatus('tidak_hadir')}
+              onClick={() => setStatus('tidak_hadir')}
             >
               {status === 'tidak_hadir' && <Check size={16} />}
               Tidak Hadir
@@ -140,33 +111,14 @@ export default function Rsvp() {
               value={totalGuests}
               onChange={(e) => setTotalGuests(parseInt(e.target.value) || 1)}
               required
-              disabled={loading}
             />
           </motion.div>
         )}
 
-        <button className={styles.submitBtn} type="submit" disabled={loading || !guestName.trim()}>
-          {loading ? (
-            <>
-              <Loader2 className="animate-spin" size={18} />
-              Mengirim...
-            </>
-          ) : (
-            'Kirim Konfirmasi'
-          )}
+        <button className={styles.submitBtn} type="submit" disabled={!guestName.trim()}>
+          Kirim Konfirmasi via WhatsApp
         </button>
       </form>
-
-      {responseMsg && (
-        <div className="flex justify-center">
-          <div className={`${styles.feedback} ${responseMsg.type === 'success' ? styles.success : styles.error}`}>
-            <span className="flex items-center gap-6 justify-center">
-              {responseMsg.type === 'success' ? <CheckCircle2 size={18} /> : <XCircle size={18} />}
-              {responseMsg.text}
-            </span>
-          </div>
-        </div>
-      )}
     </motion.section>
   );
 }
