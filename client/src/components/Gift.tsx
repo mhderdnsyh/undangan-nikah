@@ -19,7 +19,6 @@ export default function Gift() {
   const [namaBank, setNamaBank] = useState('BCA');
   const [nominal, setNominal] = useState('');
   const [ucapan, setUcapan] = useState('');
-  const [fileBukti, setFileBukti] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const giftMethods: GiftMethod[] = [
@@ -52,54 +51,30 @@ export default function Gift() {
 
   const handleConfirmSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fileBukti) {
-      alert('Mohon unggah bukti transfer');
-      return;
-    }
-
     setIsLoading(true);
 
     try {
-      const formData = new FormData();
-      formData.append('file', fileBukti);
-
-      const response = await fetch('/api/upload-proof', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        // Construct public URL, assuming backend runs on the same host or proxy
-        const imageUrl = window.location.origin + data.data.url;
-        
-        const message = `Halo, saya ingin konfirmasi pengiriman kado pernikahan:
+      const message = `Halo, saya ingin konfirmasi pengiriman kado pernikahan:
 
 Nama: ${nama}
 Bank Tujuan: ${namaBank}
 Nominal: Rp ${nominal}
 Ucapan: ${ucapan}
 
-Bukti Transfer dapat dilihat di sini:
-${imageUrl}`;
+*(Mohon lampirkan gambar struk bukti transfer pada pesan WhatsApp ini)*`;
 
-        const encodedMessage = encodeURIComponent(message);
-        const waNumber = '62895322917105'; // Real WhatsApp number
-        
-        window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
-        
-        // Reset form
-        setNama('');
-        setNominal('');
-        setUcapan('');
-        setFileBukti(null);
-      } else {
-        alert('Gagal mengunggah bukti transfer: ' + data.message);
-      }
+      const encodedMessage = encodeURIComponent(message);
+      const waNumber = '62895322917105'; // Real WhatsApp number
+      
+      window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
+      
+      // Reset form
+      setNama('');
+      setNominal('');
+      setUcapan('');
     } catch (error) {
-      console.error('Error uploading proof:', error);
-      alert('Terjadi kesalahan saat mengunggah bukti transfer.');
+      console.error('Error opening WA:', error);
+      alert('Terjadi kesalahan saat membuka WhatsApp.');
     } finally {
       setIsLoading(false);
     }
@@ -216,21 +191,12 @@ ${imageUrl}`;
               onChange={(e) => setUcapan(e.target.value)}
             ></textarea>
           </div>
-          <div className={styles.formGroup}>
-            <label>Bukti Transfer (Gambar)</label>
-            <input 
-              type="file" 
-              accept="image/*" 
-              required 
-              onChange={(e) => setFileBukti(e.target.files ? e.target.files[0] : null)}
-            />
-          </div>
           <button 
             type="submit" 
             className={styles.submitBtn}
             disabled={isLoading}
           >
-            {isLoading ? 'Mengunggah & Membuka WA...' : 'Konfirmasi via WhatsApp'}
+            {isLoading ? 'Membuka WA...' : 'Konfirmasi via WhatsApp'}
           </button>
         </form>
       </motion.div>
