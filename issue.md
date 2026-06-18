@@ -1,41 +1,47 @@
-# DOKUMEN ISSUE: Mengganti Favicon dengan Foto Prewedding
+# DOKUMEN ISSUE: Implementasi Nama Tamu Dinamis via Parameter URL
 
 ## Deskripsi Singkat
-Favicon (ikon kecil yang muncul di tab *browser* sebelah judul halaman) saat ini masih menggunakan ikon bawaan dari *framework* Vite. Kita perlu menggantinya dengan foto *prewedding* dari mempelai agar undangan pernikahan terasa lebih personal, profesional, dan unik.
+Saat ini, aplikasi mengandalkan panggilan API ke *backend* (`/api/guests/`) untuk mendapatkan nama tamu undangan. Namun, karena aplikasi kita sudah menjadi 100% statis (tanpa *database*), kita perlu menyederhanakan fitur ini. Kita bisa langsung menggunakan parameter URL (misalnya `?to=Nama+Tamu`) untuk menampilkan nama tamu undangan secara dinamis, sehingga Anda atau rekan Anda cukup mengubah _link_ yang dibagikan tanpa perlu melakukan _input_ data satu per satu ke dalam sistem.
 
 ## Tahapan Implementasi (Panduan untuk Junior Programmer / AI)
 
-Tahapan ini harus diikuti langkah demi langkah agar perubahan favicon berhasil:
+Ikuti langkah-langkah di bawah ini untuk mengubah alur kode menjadi murni statis berbasis URL.
 
-### Langkah 1: Siapkan Foto Prewedding
-1. Pilih satu foto *prewedding* yang paling bagus (disarankan foto yang memperlihatkan wajah kedua mempelai dari dekat / *close-up*, karena ukuran *favicon* sangatlah kecil).
-2. Potong (*crop*) foto tersebut menjadi bentuk persegi sempurna (rasio 1:1) agar tidak lonjong saat dijadikan ikon.
-3. Anda bisa menggunakan file foto yang sudah ada (misalnya yang ada di dalam folder `client/public/gallery/`).
+### Langkah 1: Buka File Komponen Hero
+1. Buka file `client/src/components/Hero.tsx`. File ini mengatur halaman pembuka di mana nama tamu (sebelum tombol "Buka Undangan") ditampilkan.
 
-### Langkah 2: Buat File Favicon
-Meskipun *browser* modern mendukung berbagai format, untuk foto sangat disarankan menggunakan format `.png` atau `.ico`.
-1. Simpan foto persegi tadi dengan nama `favicon.png`.
-2. Pastikan ukurannya tidak terlalu besar (disarankan maksimal 256x256 pixel agar proses *loading* website tetap cepat).
-3. Pindahkan/simpan file `favicon.png` tersebut ke dalam folder `client/public/`.
-4. (Opsional) Hapus file `vite.svg` bawaan yang lama agar folder `public` lebih bersih.
+### Langkah 2: Hapus Panggilan API (*Fetch*) dan Sederhanakan Logika
+1. Cari blok `useEffect` yang membaca `window.location.search`.
+2. Saat ini, kode tersebut mencoba melakukan `fetch('/api/guests/${to}')` dan hanya menggunakan nilai parameter URL jika `fetch` tersebut gagal (*fallback*).
+3. Hapus seluruh logika `fetch` tersebut.
+4. Ganti isi `useEffect` tersebut menjadi logika murni URL. Ubah seluruh kode `useEffect` tersebut menjadi seperti ini:
 
-### Langkah 3: Perbarui Referensi di `index.html`
-1. Buka file utama HTML yaitu `client/index.html`.
-2. Cari baris kode di bagian dalam tag `<head>` yang mengatur *icon* lama, biasanya terlihat seperti ini:
-   ```html
-   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-   ```
-3. Ubah nilai `href` dan `type`-nya agar mengarah ke file gambar foto *prewedding* yang baru. Ubah menjadi seperti ini:
-   ```html
-   <link rel="icon" type="image/png" href="/favicon.png" />
-   ```
+```tsx
+  useEffect(() => {
+    // Mengambil parameter URL
+    const params = new URLSearchParams(window.location.search);
+    const to = params.get('to');
+    
+    if (to) {
+      // Decode karakter (seperti spasi %20) dan hilangkan tanda hubung jika ada
+      // Contoh: ?to=Budi+Santoso atau ?to=Budi-Santoso
+      const decodedName = decodeURIComponent(to).replace(/-/g, ' ');
+      setGuestName(decodedName);
+    }
+  }, []);
+```
 
-### Langkah 4: Publikasikan (Deploy) Perubahan
-1. Uji coba terlebih dahulu di komputer lokal dengan me-*refresh* tab browser. Pastikan *favicon* baru (foto mempelai) sudah muncul di tab atas browser.
-2. Jika sudah benar, lakukan *commit* perubahan tersebut ke GitHub:
-   ```bash
-   git add client/public/favicon.png client/index.html
-   git commit -m "style: ganti favicon dengan foto prewedding"
-   git push origin main
-   ```
-3. Vercel akan secara otomatis melakukan *deploy* ulang (jika auto-deploy menyala), atau Anda bisa menjalankan perintah manual `npx vercel --prod` di dalam folder `client`.
+### Langkah 3: Pengujian (*Testing*)
+1. Jalankan server pengembangan (`bun run dev`).
+2. Buka browser dan kunjungi `http://localhost:5173/`. Nama tamu seharusnya menampilkan tulisan default "Tamu Undangan".
+3. Tambahkan parameter di URL, misalnya: `http://localhost:5173/?to=Budi+Santoso` atau `http://localhost:5173/?to=Budi%20Santoso`.
+4. Pastikan teks di halaman pembuka langsung berubah menjadi nama "Budi Santoso" tanpa adanya _loading_ atau *error* di konsol (*Inspect Element*).
+
+### Langkah 4: Cara Membagikan Undangan
+Setelah fitur ini selesai dan di-deploy ke produksi, rekan kerja hanya perlu menambahkan `?to=Nama+Tamu` di akhir domain undangan saat membagikannya.
+* Contoh: `https://surya-juni-wedding.vercel.app/?to=Bapak+Andi`
+* Contoh: `https://surya-juni-wedding.vercel.app/?to=Keluarga+Besar+Budi`
+
+### Langkah 5: Publikasikan (Deploy)
+1. *Commit* perubahan dengan pesan: `fix: ubah logika nama tamu agar 100% statis berbasis URL parameter`
+2. Lakukan push dan buat Pull Request agar Vercel otomatis me-deploy perubahan tersebut.
