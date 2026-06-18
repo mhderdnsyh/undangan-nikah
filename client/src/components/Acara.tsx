@@ -89,6 +89,10 @@ export default function Acara() {
             <Calendar size={20} />
             Pemberkatan Pernikahan
           </h3>
+          <div className={styles.time} style={{ marginBottom: '8px' }}>
+            <Calendar size={16} />
+            <span>Jum'at, 26 Juni 2026</span>
+          </div>
           <div className={styles.time}>
             <Clock size={16} />
             <span>10:00 WIB - Selesai</span>
@@ -116,6 +120,10 @@ export default function Acara() {
             <Calendar size={20} />
             Resepsi
           </h3>
+          <div className={styles.time} style={{ marginBottom: '8px' }}>
+            <Calendar size={16} />
+            <span>Jum'at, 26 Juni 2026</span>
+          </div>
           <div className={styles.time}>
             <Clock size={16} />
             <span>10:00 WIB - Selesai</span>
