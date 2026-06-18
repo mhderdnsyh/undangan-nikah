@@ -12,28 +12,20 @@ export default function Hero({ onOpen, isOpen }: HeroProps) {
   const [guestName, setGuestName] = useState<string>('');
   
   useEffect(() => {
+    // Mengambil parameter URL
     const params = new URLSearchParams(window.location.search);
     const to = params.get('to');
     
     if (to) {
-      // Fetch official name from backend if slug is provided
-      fetch(`/api/guests/${to}`)
-        .then((res) => {
-          if (!res.ok) throw new Error('Guest not found');
-          return res.json();
-        })
-        .then((resJson) => {
-          if (resJson.success && resJson.data?.name) {
-            setGuestName(resJson.data.name);
-          } else {
-            // Fallback: decode slug directly
-            setGuestName(decodeURIComponent(to).replace(/-/g, ' '));
-          }
-        })
-        .catch(() => {
-          // Fallback on error
-          setGuestName(decodeURIComponent(to).replace(/-/g, ' '));
-        });
+      // Decode karakter (seperti spasi %20) dan hilangkan tanda hubung jika ada
+      // Contoh: ?to=Budi+Santoso atau ?to=Budi-Santoso
+      try {
+        const decodedName = decodeURIComponent(to).replace(/-/g, ' ');
+        setGuestName(decodedName);
+      } catch (e) {
+        // Fallback jika decodeURIComponent gagal (misal jika format persen tidak valid)
+        setGuestName(to.replace(/-/g, ' '));
+      }
     }
   }, []);
 
